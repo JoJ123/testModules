@@ -14,7 +14,8 @@
     "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
-      "@modules/*": ["./modules/*"]
+      "@user/*": ["./src/modules/user/src/*"],
+      "@user": ["./src/modules/user/src/index"]
     }
   },
   "include": ["src/**/*.ts"],
