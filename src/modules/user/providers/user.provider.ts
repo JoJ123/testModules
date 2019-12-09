@@ -1,7 +1,8 @@
 import { Injectable, Inject } from '@graphql-modules/di';
 import { ModuleConfig } from '@graphql-modules/core';
 import { Collection } from 'mongodb';
-import { UserDbObject, UserModuleConfig } from '../config';
+import { UserModuleConfig } from '../config';
+import { UserDbObject } from 'src/generated-models';
 
 @Injectable()
 export class UserProvider {

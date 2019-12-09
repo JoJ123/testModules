@@ -1,7 +1,8 @@
 import { Injectable, Inject } from '@graphql-modules/di';
 import { ModuleConfig } from '@graphql-modules/core';
 import { Collection } from 'mongodb';
-import { TeamModuleConfig, TeamDbObject } from '../config';
+import { TeamModuleConfig } from '../config';
+import { TeamDbObject } from 'src/generated-models';
 @Injectable()
 export class TeamProvider {
     public collection: Collection<TeamDbObject>;

@@ -1,0 +1,3 @@
+type Mutation {
+  addTeam(name: String!): Team
+}

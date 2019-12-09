@@ -1,0 +1,4 @@
+type Team @entity {
+  id: ID! @id
+  name: String @column
+}

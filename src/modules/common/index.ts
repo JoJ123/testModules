@@ -1,13 +1,10 @@
 import { GraphQLModule } from '@graphql-modules/core';
-import { TeamProvider } from './providers/team.provider';
-import { TeamModuleConfig } from './config';
 import { loadResolversFilesAsync, loadSchemaFilesAsync } from '@graphql-toolkit/file-loading';
-import { commonModule } from '../common';
+import { CommonModuleConfig } from './config';
 
-export const TeamModule = new GraphQLModule<TeamModuleConfig>({
-  name: 'team',
-  imports: [commonModule],
+export const commonModule = new GraphQLModule<CommonModuleConfig>({
+  name: 'common',
   typeDefs: loadSchemaFilesAsync(__dirname + '/types/', { useRequire: true }),
   resolvers: loadResolversFilesAsync(__dirname + '/resolvers/'),
-  providers: [TeamProvider]
+  providers: [],
 });

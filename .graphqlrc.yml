@@ -1,0 +1,13 @@
+schema: src/modules/**/*.graphql
+extensions:
+  codegen:
+    generates:
+      src/generated-models.ts:
+        plugins:
+          - add: /* tslint:disable */
+          - typescript
+          - typescript-mongodb
+        config:
+          maybeValue: T | null | undefined
+          namingConvention:
+            enumValues: change-case#upperCase

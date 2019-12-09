@@ -1,6 +1,5 @@
 
 import { Db, MongoClient } from 'mongodb';
-import * as express from 'express';
 import { initAppModule } from './app-module';
 import { ApolloServer } from 'apollo-server';
 
