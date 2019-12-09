@@ -1,3 +1,5 @@
 type Mutation {
   addTeam(name: String!): Team
+  addMember(teamId: ID!, userId: ID!): Boolean
+  removeMember(teamId: ID!, userId: ID!): Boolean
 }

@@ -1,7 +1,4 @@
 type Query {
   team(id: ID!): Team
+  teamList: [Team]
 }
-
-directive @column(overrideType: String) on FIELD_DEFINITION
-
-directive @id on FIELD_DEFINITION

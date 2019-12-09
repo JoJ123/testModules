@@ -1,4 +1,6 @@
 type Team @entity {
   id: ID! @id
   name: String @column
+  members: [User] @link
+  createdAt: String @column(overrideType: "Date")
 }

@@ -4,6 +4,7 @@ import { QueryTeamArgs } from "src/generated-models";
 
 export default {
     Query: {
-        team: (root, args: QueryTeamArgs, { injector }: ModuleContext) => injector.get(TeamProvider).getTeamById(args.id)
+        team: (root, args: QueryTeamArgs, { injector }: ModuleContext) => injector.get(TeamProvider).getTeamById(args.id),
+        teamList: (root, args: any, { injector }: ModuleContext) => injector.get(TeamProvider).getTeamList()
     },
 };

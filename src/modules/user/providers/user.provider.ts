@@ -23,6 +23,15 @@ export class UserProvider {
         return user
     }
 
+    async getUserByIds(ids: Array<ObjectID | string | undefined | null>) {
+        const idObjs = ids.map(id => ensureObjectID(id))
+        return await this.collection.find({ _id: { $in: idObjs } }).toArray();
+    }
+
+    async getUserList() {
+        return this.collection.find({}).toArray();
+    }
+
     async addUser(userInput: AddUserInput) {
         const profile = {
             givenName: userInput.givenName,
