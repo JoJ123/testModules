@@ -18,8 +18,6 @@ export async function initServer() {
         schema,
         graphiql: true
     }));
-    console.log("Test")
 
     app.listen(4001)
-    console.log("TaDa")
 }
