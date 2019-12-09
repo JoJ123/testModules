@@ -1,0 +1,12 @@
+type Query {
+  team(id: ID!): Team
+}
+
+type Mutation {
+  addTeam(name: String!): Team
+}
+
+type Team {
+  id: ID!
+  name: String!
+}

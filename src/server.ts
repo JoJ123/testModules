@@ -20,6 +20,6 @@ export async function initServer() {
     }));
     console.log("Test")
 
-    app.listen(3000)
+    app.listen(4001)
     console.log("TaDa")
 }
