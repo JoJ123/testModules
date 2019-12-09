@@ -1,15 +1,22 @@
 import { Injectable, Inject } from '@graphql-modules/di';
-import { ModuleConfig } from '@graphql-modules/core';
+import { ModuleConfig, OnInit } from '@graphql-modules/core';
 import { Collection, ObjectID } from 'mongodb';
 import { TeamModuleConfig } from '../config';
 import { TeamDbObject } from 'src/generated-models';
 import { ensureObjectID } from 'src/modules/common-mongo/utils/ensure-object-id';
 import moment = require('moment');
+import { UserProvider } from 'src/modules/user/providers/user.provider';
 @Injectable()
-export class TeamProvider {
+export class TeamProvider implements OnInit {
     public collection: Collection<TeamDbObject>;
-    constructor(@Inject(ModuleConfig) private config: TeamModuleConfig) {
+    constructor(@Inject(ModuleConfig) private config: TeamModuleConfig, private userProvider: UserProvider) {
         this.collection = this.config.teamCollection;
+    }
+
+    onInit() {
+        this.userProvider.onDeleteUser(async ({ userId }) => {
+            await this.removeMemberFromTeams(userId)
+        })
     }
 
     async getTeamById(id: ObjectID | string | undefined | null) {
@@ -32,8 +39,8 @@ export class TeamProvider {
 
     async addMember(teamId: ObjectID | string | undefined | null, userId: ObjectID | string | undefined | null) {
         const teamIdObj = ensureObjectID(teamId)
-        const userIdObj = ensureObjectID(userId)
-        const updateResult = await this.collection.updateOne({ _id: teamIdObj }, { $push: { members: userIdObj } });
+        const user = await this.userProvider.getUserById(userId);
+        const updateResult = await this.collection.updateOne({ _id: teamIdObj }, { $addToSet: { members: user._id } });
         return updateResult.matchedCount > 0
     }
 
@@ -41,6 +48,12 @@ export class TeamProvider {
         const teamIdObj = ensureObjectID(teamId)
         const userIdObj = ensureObjectID(userId)
         const updateResult = await this.collection.updateOne({ _id: teamIdObj }, { $pull: { members: userIdObj } });
+        return updateResult.matchedCount > 0
+    }
+
+    async removeMemberFromTeams(userId: ObjectID | string | undefined | null) {
+        const userIdObj = ensureObjectID(userId)
+        const updateResult = await this.collection.updateOne({ members: userIdObj }, { $pull: { members: userIdObj } });
         return updateResult.matchedCount > 0
     }
 }

@@ -20,8 +20,8 @@ export async function initServer() {
     });
 }
 
-
 // Remaining:
+// - Hook delete user --> Remove from team
 // - Authorization
 // - Deployment
 // - Docker it!

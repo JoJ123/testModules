@@ -1,5 +1,6 @@
 type Mutation {
   addUser(addUserData: AddUserInput!): User
+  removeUser(id: ID!): Boolean
 }
 
 input AddUserInput {

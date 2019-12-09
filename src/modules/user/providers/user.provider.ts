@@ -6,10 +6,15 @@ import { UserDbObject, AddUserInput } from 'src/generated-models';
 import { ensureObjectID } from 'src/modules/common-mongo/utils/ensure-object-id';
 import moment = require('moment');
 import { addCollectionItem } from 'src/modules/common-mongo/utils/add-collection-item';
+import { ProviderEvent } from 'src/modules/common/provider-event';
 
 @Injectable()
 export class UserProvider {
     public collection: Collection<UserDbObject>;
+
+    private deleteUserEvent = new ProviderEvent<{ userId: ObjectID }>();
+    public onDeleteUser = this.deleteUserEvent.register;
+
     constructor(@Inject(ModuleConfig) private config: UserModuleConfig) {
         this.collection = this.config.userCollection;
     }
@@ -46,6 +51,10 @@ export class UserProvider {
     async removeUser(id: ObjectID | string | undefined | null) {
         const idObj = ensureObjectID(id)
         const removeResult = await this.collection.deleteOne({ _id: idObj });
-        return removeResult.deletedCount
+        if (removeResult.deletedCount > 0) {
+            await this.deleteUserEvent.trigger({ userId: idObj })
+            return true;
+        }
+        return false
     }
 }
