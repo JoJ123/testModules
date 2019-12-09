@@ -1,4 +1,11 @@
 type User @entity {
   id: ID! @id
-  username: String @column
+  profile: Profile @embedded
+  createdAt: String @column(overrideType: "Date")
+}
+
+type Profile @entity {
+  name: String @column
+  givenName: String @column
+  familyName: String @column
 }

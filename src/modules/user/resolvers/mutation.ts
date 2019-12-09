@@ -4,6 +4,6 @@ import { MutationAddUserArgs } from "src/generated-models";
 
 export default {
     Mutation: {
-        addUser: (root: never, args: MutationAddUserArgs, { injector }: ModuleContext) => injector.get(UserProvider).addUser(args.username)
+        addUser: (root: never, args: MutationAddUserArgs, { injector }: ModuleContext) => injector.get(UserProvider).addUser(args.addUserData)
     }
 };

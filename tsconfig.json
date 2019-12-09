@@ -14,8 +14,12 @@
     "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
+      "@common-mongo/*": ["./src/modules/common-mongo/src/*"],
+      "@common-mongo": ["./src/modules/common-mongo/src/index"],
       "@user/*": ["./src/modules/user/src/*"],
-      "@user": ["./src/modules/user/src/index"]
+      "@user": ["./src/modules/user/src/index"],
+      "@team/*": ["./src/modules/team/src/*"],
+      "@team": ["./src/modules/team/src/index"]
     }
   },
   "include": ["src/**/*.ts"],

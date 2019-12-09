@@ -1,3 +1,9 @@
 type Mutation {
-  addUser(username: String!): User
+  addUser(addUserData: AddUserInput!): User
+}
+
+input AddUserInput {
+  email: String!
+  givenName: String!
+  familyName: String!
 }
