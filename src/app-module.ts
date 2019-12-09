@@ -3,7 +3,6 @@ import { Db } from 'mongodb';
 import resolversComposition from './resolvers-composition';
 import { UserModule } from './modules/user';
 import { TeamModule } from './modules/team';
-import { commonModule } from './modules/common';
 
 interface InitAppModuleOptions {
   db: Db;
@@ -14,11 +13,10 @@ export async function initAppModule({ db }: InitAppModuleOptions): Promise<Graph
     name: 'root',
     resolversComposition,
     imports: [
-      commonModule.forRoot({}),
-      UserModule.forRoot({
+      (await UserModule()).forRoot({
         userCollection: db.collection('user'),
       }),
-      TeamModule.forRoot({
+      (await TeamModule()).forRoot({
         teamCollection: db.collection('team'),
       })
     ]
