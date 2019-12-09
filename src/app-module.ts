@@ -13,10 +13,10 @@ export async function initAppModule({ db }: InitAppModuleOptions): Promise<Graph
     name: 'root',
     resolversComposition,
     imports: [
-      (await UserModule()).forRoot({
+      UserModule.forRoot({
         userCollection: db.collection('user'),
       }),
-      (await TeamModule()).forRoot({
+      TeamModule.forRoot({
         teamCollection: db.collection('team'),
       })
     ]

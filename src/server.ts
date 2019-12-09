@@ -19,3 +19,11 @@ export async function initServer() {
         console.log(`🚀  Server ready at ${url}`);
     });
 }
+
+
+// Remaining:
+// - Authorization
+// - Deployment
+// - Docker it!
+// - Kubernates
+
